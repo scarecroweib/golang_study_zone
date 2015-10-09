@@ -60,6 +60,10 @@ func main() {
 	xmap["name"] = 100
 	fmt.Println(xmap["name"])
 
+	for k, v := range xmap {
+		fmt.Printf("%s=>%d\n", k, v)
+	}
+
 	ymap := make(map[string]int32)
 	ymap["name"] = 200
 	fmt.Println(ymap)
