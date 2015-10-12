@@ -29,6 +29,13 @@ func main() {
 	fmt.Println(fslice)
 	fmt.Println(ia_1)
 
+	var testslice []string //声明了一个指针
+	//testslice = []string{"test1", "test2"} //初始化，和下面的make操作是等价的
+	testslice = make([]string, 2)
+	testslice[0] = "test1"
+	testslice[1] = "test2"
+	fmt.Println(testslice)
+
 	xslice := []int{1, 2, 3} //初始化一个slice
 	fmt.Println(xslice)
 
