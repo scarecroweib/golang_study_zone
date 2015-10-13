@@ -5,6 +5,7 @@ import "fmt"
 type Color byte
 
 type Box struct {
+	no                   string
 	width, height, depth float64
 	color                Color
 }
@@ -26,8 +27,9 @@ func (b Box) Volume() float64 {
 	return b.height * b.width * b.depth
 }
 
+//个人理解 在GO中，指针只需要在需要引用调用时写出来，其它情况编译器会自动处理，也就是只要告诉编译器是引用传递还是值传递就可以了
 func (b *Box) SetColor(c Color) { //因为要改变原值，因此要使用指针
-	b.color = c
+	b.color = c //这里可以使用
 }
 
 func (bl BoxList) BiggestBoxColor() Color {
@@ -48,7 +50,8 @@ func (bl BoxList) PaintItBlack() {
 	//	}
 
 	for i, _ := range bl {
-		bl[i].SetColor(BLACK)
+		//(&bl[i]).SetColor(BLACK)	//两种写法等价
+		bl[i].SetColor(GREEN)
 	}
 }
 
@@ -59,15 +62,15 @@ func (c Color) GetColorString() string {
 
 func main() {
 	boxlist := BoxList{
-		{10, 10, 10, WHITH},
-		{20, 10, 10, BLACK},
-		{30, 10, 10, BLUE},
-		{40, 10, 10, RED},
-		{50, 10, 10, GREEN},
+		{"box1", 10, 10, 10, WHITH},
+		{"box2", 20, 10, 10, BLACK},
+		{"box3", 30, 10, 10, BLUE},
+		{"box4", 40, 10, 10, RED},
+		{"box5", 50, 10, 10, GREEN},
 	}
 
 	for _, box := range boxlist {
-		fmt.Printf("%f---%s\n", box.Volume(), box.color.GetColorString())
+		fmt.Printf("%s---%f---%s\n", box.no, box.Volume(), box.color.GetColorString())
 	}
 
 	fmt.Printf("The biggest box's color: %s\n", boxlist.BiggestBoxColor().GetColorString())
@@ -75,6 +78,6 @@ func main() {
 	boxlist.PaintItBlack()
 
 	for _, box := range boxlist {
-		fmt.Printf("%f---%s\n", box.Volume(), box.color.GetColorString())
+		fmt.Printf("%s---%f---%s\n", box.no, box.Volume(), box.color.GetColorString())
 	}
 }
