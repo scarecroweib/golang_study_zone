@@ -29,7 +29,8 @@ func (b Box) Volume() float64 {
 
 //个人理解 在GO中，指针只需要在需要引用调用时写出来，其它情况编译器会自动处理，也就是只要告诉编译器是引用传递还是值传递就可以了
 func (b *Box) SetColor(c Color) { //因为要改变原值，因此要使用指针
-	b.color = c //这里可以使用
+	//b.color = c //这里等价于下面一行
+	(*b).color = c //使用指针时一定要加()
 }
 
 func (bl BoxList) BiggestBoxColor() Color {

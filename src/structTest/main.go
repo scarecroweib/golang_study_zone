@@ -23,6 +23,13 @@ type student struct {
 	gread int32
 }
 
+type student2 struct {
+	person        //嵌套
+	m      monkey //当嵌套的结构体，包含相同的字段时
+	s      skills //当自定义类型，不作为嵌套类型时
+	int32         //当基本类型作为匿名字段时
+}
+
 func Older(p1, p2 person) (name string, agediff int32) {
 	if p1.age > p2.age {
 		name = p1.name
@@ -79,6 +86,11 @@ func main() {
 	f.Println(ss1)
 
 	ss2 := student{person{"tom", 13}, monkey{"monkey king", 12}, []string{"skill2"}, 4} //嵌套形式下，声明并初始化
+	f.Println(ss2.skills)
 	f.Println(ss2)
 
+	m := monkey{"monkey king", 12}
+	ss3 := student2{person{"tom", 13}, m, skills{"skill2"}, 4} //skills实际就是[]string
+	f.Println(ss3)
+	f.Println(ss3.int32) //匿名字段的基本类型字段调用
 }
